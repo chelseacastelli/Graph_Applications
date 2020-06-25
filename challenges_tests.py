@@ -24,5 +24,51 @@ class NumIslandsTests(unittest.TestCase):
         assert challenges.numIslands(map2) == 3
 
 
+class RottingOrangesTests(unittest.TestCase):
+    def test_timeToRot(self):
+        """
+        Graph BFS problem. Tells the time taken for oranges to all rot.
+        Test cases from LeetCode.
+        """
+        # Test Cases
+        oranges1 = [
+            [2,1,1],
+            [1,1,0],
+            [0,1,1]
+        ]
+        assert challenges.timeToRot(oranges1) == 4
+
+        oranges2 = [
+            [2,1,1],
+            [0,1,1],
+            [1,0,1]
+        ]
+        assert challenges.timeToRot(oranges2) == -1
+
+        oranges3 = [
+            [0,2]
+        ]
+        assert challenges.timeToRot(oranges3) == 0
+
+
+class ClassSchedulingTests(unittest.TestCase):
+    def test_courseOrder(self):
+        courses1 = [[1, 0]]
+        assert challenges.courseOrder(2, courses1) == [0, 1]
+
+        courses2 = [[1, 0], [2, 0], [3, 1], [3, 2]]
+        possibleSchedules = [[0, 1, 2, 3], [0, 2, 1, 3]]
+        assert challenges.courseOrder(4, courses2) in possibleSchedules
+
+
+class WordLadderTests(unittest.TestCase):
+    def test_wordLadderLength(self):
+        beginWord = "hit"
+        endWord = "cog"
+        wordList = ["hot", "dot", "dog", "lot", "log", "cog"]
+
+        assert challenges.wordLadderLength(beginWord, endWord, wordList) == 5
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -30,3 +30,25 @@ def numIslands(grid):
                 depth_search(grid, row, col, i, j)
                 count += 1
     return count
+
+
+def timeToRot(grid):
+    """
+    Take in a grid of numbers, where 0 is an empty space, 1 is a fresh orange, and 2 is a rotten
+    orange. Each minute, a rotten orange contaminates its 4-directional neighbors. Return the number
+    of minutes until all oranges rot.
+    """
+    pass
+
+
+def courseOrder(numCourses, prerequisites):
+    """Return a course schedule according to the prerequisites provided."""
+    pass
+
+
+def wordLadderLength(beginWord, endWord, wordList):
+    """Return the length of the shortest word chain from beginWord to endWord, using words from wordList."""
+    pass
+
+
+
