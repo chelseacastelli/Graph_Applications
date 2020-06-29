@@ -1,4 +1,7 @@
 
+from collections import deque
+from graph import Graph
+
 
 def depth_search(grid, row, col, x, y):
     if grid[x][y] == 0:
@@ -38,12 +41,66 @@ def timeToRot(grid):
     orange. Each minute, a rotten orange contaminates its 4-directional neighbors. Return the number
     of minutes until all oranges rot.
     """
-    pass
+    rows = len(grid)
+    cols = len(grid[0])
+
+    time_to_rot = 0
+    queue = deque()
+
+    for row in range(rows):
+        for col in range(cols):
+            # position = (row * rows) + col
+            position = grid[row][col]
+
+            # add rotted oranges to queue with T minus 0
+            if position == 2:
+                queue.append((row, col, 0))
+
+    while queue:
+        row, col, tminus = queue.popleft()
+
+        if tminus > time_to_rot:
+            time_to_rot = tminus
+
+        # infect neighbors
+        north = row - 1
+        south = row + 1
+        west = col - 1
+        east = col + 1
+
+        if row > 0 and grid[north][col] == 1:
+            grid[north][col] = 2
+            queue.append((north, col, tminus + 1))
+        if row < rows - 1 and grid[south][col] == 1:
+            grid[south][col] = 2
+            queue.append((south, col, tminus + 1))
+        if col > 0 and grid[row][west] == 1:
+            grid[row][west] = 2
+            queue.append((row, west, tminus + 1))
+        if col < cols - 1 and grid[row][east] == 1:
+            grid[row][east] = 2
+            queue.append((row, east, tminus + 1))
+
+    # if any fresh oranges remain after contagion(isolated)
+    if [y for x in grid for y in x if y == 1]:
+        return -1
+
+    return time_to_rot
 
 
 def courseOrder(numCourses, prerequisites):
     """Return a course schedule according to the prerequisites provided."""
-    pass
+    graph = Graph(is_directed=True)
+
+    course = [graph.add_vertex(each) for courses in prerequisites for each in courses]
+
+    if numCourses != len(graph.get_vertices()):
+        return []
+
+    for each in prerequisites:
+        graph.add_edge(each[1], each[0])
+
+    return graph.topological_sort()
 
 
 def wordLadderLength(beginWord, endWord, wordList):
